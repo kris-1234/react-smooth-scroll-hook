@@ -81,10 +81,11 @@ export const Demo = () => {
 
 #### Returns of Hook
 
-- **scrollTo** `(string|number) => void`
+- **scrollTo** `(string|number, offset?) => void`
 
   - Pass `number`: the distance to scroll, e.g. `scrollTo(400)`
   - Pass `string`: the element seletor you want to scrollTo, meanwhile passing to `document.querySelector`, e.g. `scrollTo('#your-dom-id')`
+  - Pass `offset` (optional): the distance it should scroll below the specified destination.
 
 - **reachedTop** `boolean`: Whether it has reached the top of refContainer
 
