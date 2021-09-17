@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useEffect } from 'react';
 import {
   debounce,
@@ -79,17 +79,23 @@ export const useSmoothScroll = ({
     );
   };
 
-  const refreshSize = debounce(() => {
-    if (ref.current) {
-      const size = ref.current[attrMap.clientWidthHeight];
-      setSize(size);
-    }
-  });
+  const refreshSize = useCallback(
+    debounce(() => {
+      if (ref.current) {
+        const size = ref.current[attrMap.clientWidthHeight];
+        setSize(size);
+      }
+    }),
+    [ref, attrMap]
+  );
 
-  const refreshState = debounce((_evt: Event) => {
-    isTopEdge() ? setReachedTop(true) : setReachedTop(false);
-    isBottomEdge() ? setReachedBottom(true) : setReachedBottom(false);
-  });
+  const refreshState = useCallback(
+    debounce((_evt: Event) => {
+      isTopEdge() ? setReachedTop(true) : setReachedTop(false);
+      isBottomEdge() ? setReachedBottom(true) : setReachedBottom(false);
+    }),
+    []
+  );
 
   const scrollTo = (target?: number | string, offset?: number) => {
     if (!ref || !ref.current) {
