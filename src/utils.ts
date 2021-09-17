@@ -27,7 +27,7 @@ export const getAttrMap = (direction: DirectionType) => {
 
 export function debounce(cb: Function, delay = 100) {
   let timer: NodeJS.Timeout;
-  return function(...args: any) {
+  return (...args: any) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-this-alias

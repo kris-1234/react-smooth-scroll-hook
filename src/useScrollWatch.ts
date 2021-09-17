@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   debounce,
   DirectionType,
@@ -52,7 +52,7 @@ export const useScrollWatch = (props: useScrollWathType) => {
   const [scrollTop, setScrollTop] = useState(getScrollTop() || 0);
 
   const getPosList = () => {
-    let posList = list.map(item => {
+    let posList = list.map((item) => {
       const parent = ref.current;
       const os = typeof item.offset === 'number' ? item.offset : offset || 0;
       const elm = document.querySelector(item.href);
@@ -69,10 +69,13 @@ export const useScrollWatch = (props: useScrollWathType) => {
     return posList;
   };
 
-  const refresh = debounce(() => {
-    setScrollTop(getScrollTop());
-    setPosList(getPosList());
-  }, 100);
+  const refresh = useCallback(
+    debounce(() => {
+      setScrollTop(getScrollTop());
+      setPosList(getPosList());
+    }, 100),
+    []
+  );
 
   const [posList, setPosList] = useState<number[]>([]);
 

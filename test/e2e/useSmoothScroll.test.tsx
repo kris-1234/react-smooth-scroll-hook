@@ -16,8 +16,8 @@ async function isIntersectingViewport(
   return await elm.evaluate<(element: Element, options) => Promise<boolean>>(
     async (element, options) => {
       const { threshold = 0 } = options || {};
-      const visibleRatio = await new Promise(resolve => {
-        const observer = new IntersectionObserver(entries => {
+      const visibleRatio = await new Promise((resolve) => {
+        const observer = new IntersectionObserver((entries) => {
           resolve(entries[0].intersectionRatio);
           observer.disconnect();
         });
@@ -65,9 +65,9 @@ describe('useSmoothScroll', () => {
       text: `scrollTo(400)`,
     });
     await page.waitFor(1000);
-    expect(await page.evaluate(element => element.scrollTop, demoWrapElm)).toBe(
-      400
-    );
+    expect(
+      await page.evaluate((element) => element.scrollTop, demoWrapElm)
+    ).toBe(400);
   });
 
   test('should scrollTo target node y-item-20', async () => {
